@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserReturn, UserReturnArr } from "../interfaces";
+import { UserReturn, UserReturnArr, UserUpdate } from "../interfaces";
 import { userServices } from "../services";
 import { userCreateSchema, userUpadeteSchema } from "../schemas";
 
@@ -17,10 +17,11 @@ const read = async (req: Request, res: Response) => {
 }
 
 const update = async (req: Request, res: Response) => {
-    // const verifyReq = userUpadeteSchema.parse(req.body)
-    // const user: UserReturn = await userServices.update(verifyReq)
+    const user = res.locals.foundedUser
+    const verifyReq = userUpadeteSchema.parse(req.body)
+    const userUpdate = await userServices.update(user, verifyReq)
 
-    // return res.status(200).json(user)
+    return res.status(200).json(userUpdate)
 }
 
 const destroy = async (req: Request, res: Response) => {

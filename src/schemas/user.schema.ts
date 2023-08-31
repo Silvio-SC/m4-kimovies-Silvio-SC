@@ -22,5 +22,6 @@ const userCreateSchema = userSchema.omit({
 
 const userUpadeteSchema = userSchema.partial().omit({ id: true, admin: true })
 const userReturnSchema = userSchema.omit({ password: true })
+const userReturnArrSchema = userReturnSchema.array()
 
-export { userSchema, userCreateSchema, userReturnSchema, userUpadeteSchema }
+export { userSchema, userCreateSchema, userReturnSchema, userUpadeteSchema, userReturnArrSchema }

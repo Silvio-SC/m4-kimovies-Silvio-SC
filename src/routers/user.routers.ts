@@ -5,6 +5,9 @@ import middlewares from "../middlewares";
 export const userRouter: Router = Router();
 
 userRouter.post("", userControllers.create)
-userRouter.get("", userControllers.read)
-userRouter.patch("/:id", )
-userRouter.delete("/:id", middlewares.idExists, userControllers.destroy)
+userRouter.get("", userControllers.read) // Tem que ter Token
+
+userRouter.use("/:id", middlewares.idExists)
+
+userRouter.patch("/:id", userControllers.update) // Tem que ter Token
+userRouter.delete("/:id", userControllers.destroy) // Tem que ter Token

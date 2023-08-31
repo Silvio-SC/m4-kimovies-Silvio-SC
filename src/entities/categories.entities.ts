@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { RealEstate } from "./realEstates.entities";
 
 @Entity("categories")
 export class Category {
@@ -7,4 +8,7 @@ export class Category {
 
   @Column({ length: 45 , unique: true})
   name: string;
+
+  @OneToMany(() => RealEstate, (re) => re.categories)
+  realEstates: RealEstate[]
 }

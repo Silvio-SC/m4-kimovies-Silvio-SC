@@ -10,7 +10,7 @@ export class RealEstate {
   @Column({ default: false })
   sold: boolean;
 
-  @Column({ type: "decimal" })
+  @Column("decimal", { precision: 12, scale: 2 })
   value: number;
 
   @CreateDateColumn({ type: "date" })
