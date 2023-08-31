@@ -1,8 +1,10 @@
 import { Router } from "express";
+import { userControllers } from "../controllers";
+import middlewares from "../middlewares";
 
 export const userRouter: Router = Router();
 
-userRouter.post("", )
-userRouter.get("", )
+userRouter.post("", userControllers.create)
+userRouter.get("", userControllers.read)
 userRouter.patch("/:id", )
-userRouter.delete("/:id", )
+userRouter.delete("/:id", middlewares.idExists, userControllers.destroy)
