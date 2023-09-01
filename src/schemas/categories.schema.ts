@@ -7,6 +7,7 @@ const categorySchema = z.object({
     realEstates: realEstateSchema.array()
 })
 
-const categoryCreateSchema = categorySchema.omit({ id: true })
+const categoryCreateSchema = categorySchema.omit({ id: true , realEstates: true})
+const categoryReturnSchema = categorySchema.omit({ realEstates: true})
 
-export { categorySchema, categoryCreateSchema }
+export { categorySchema, categoryCreateSchema, categoryReturnSchema }

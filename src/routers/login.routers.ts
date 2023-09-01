@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { loginServices } from "../services";
+import { loginControllers } from "../controllers";
 
 export const loginRouter: Router = Router();
 
-loginRouter.post("", loginServices.login)
+loginRouter.post("", loginControllers.login)

@@ -1,25 +1,25 @@
 import { Category } from "../entities";
-import { CategoryCreate } from "../interfaces";
+import { CategoryCreate, CategoryReturnArr } from "../interfaces";
 import { categoryRepo } from "../repositories";
-import { categoryCreateSchema } from "../schemas";
+import { categoryCreateSchema, categoryReturnSchema, categorySchema } from "../schemas";
 
 const create = async (payload: CategoryCreate ) => {
     const category: Category = categoryRepo.create(payload)
     await categoryRepo.save(category)
 
-    return categoryCreateSchema.parse(category) 
+    return categoryReturnSchema.parse(category) 
 }
 
-const read = async () => {
+const read = async (): Promise<CategoryReturnArr> => {
     const categories: Category[] = await categoryRepo.find()
-
-    return categoryCreateSchema.parse(categories) 
+    categoryReturnSchema.parse(categories)
+    return  categories
 }
 
-const readBycategory = async (payload: CategoryCreate ) => {
-    const categories: Category[] = await categoryRepo.findBy(payload)
+const readByCategory = async (payload: string ) => {
+    const categories = await categoryRepo.findBy({ name: payload})
 
-    return categoryCreateSchema.parse(categories) 
+    return categorySchema.parse(categories) 
 }
 
-export { create }
+export default { create, read, readByCategory }

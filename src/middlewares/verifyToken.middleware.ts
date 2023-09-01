@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors";
 import { verify } from "jsonwebtoken";
 
-
 export const verifyToken = (
     req: Request,
     res: Response,

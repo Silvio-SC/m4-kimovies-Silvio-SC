@@ -1,11 +1,12 @@
 import { Repository } from "typeorm"
-import { categoryCreateSchema, userCreateSchema } from "../schemas"
+import { categoryCreateSchema, categoryReturnSchema, userCreateSchema } from "../schemas"
 import { z } from "zod"
 import { Category } from "../entities"
 
 type CategoryCreate = z.infer<typeof categoryCreateSchema> 
-type CategoryReturnArr = CategoryCreate[]
+type CategoryReturn = z.infer<typeof categoryReturnSchema> 
+type CategoryReturnArr = CategoryReturn[]
 
 type CategoryRepo = Repository<Category>
 
-export { CategoryCreate, CategoryRepo, CategoryReturnArr }
+export { CategoryCreate, CategoryRepo, CategoryReturnArr, CategoryReturn }
