@@ -7,10 +7,9 @@ import { categoriesServices } from "../services"
 const create = async (req: Request, res: Response) => {
     const name = req.body.name
     const verifyReq = await categoryRepo.findOneBy({ name })
-
-    if (!verifyReq) throw new AppError("Name already exists.", 401)
+    if (verifyReq) throw new AppError("Category already exists", 409)
     
-    const category: CategoryReturn = await categoriesServices.create(name)
+    const category: CategoryReturn = await categoriesServices.create(req.body)
 
     return res.status(201).json(category)
 }

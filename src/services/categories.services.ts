@@ -1,7 +1,9 @@
 import { Category } from "../entities";
+import { AppError } from "../errors";
 import { CategoryCreate, CategoryReturnArr } from "../interfaces";
+import { CategorySchema } from "../interfaces/categories.interfaces";
 import { categoryRepo } from "../repositories";
-import { categoryCreateSchema, categoryReturnSchema, categorySchema } from "../schemas";
+import { categoryReturnArrSchema, categoryReturnSchema, categorySchema } from "../schemas";
 
 const create = async (payload: CategoryCreate ) => {
     const category: Category = categoryRepo.create(payload)
@@ -12,13 +14,17 @@ const create = async (payload: CategoryCreate ) => {
 
 const read = async (): Promise<CategoryReturnArr> => {
     const categories: Category[] = await categoryRepo.find()
-    categoryReturnSchema.parse(categories)
-    return  categories
+    
+    return categoryReturnArrSchema.parse(categories)
 }
 
 const readByCategory = async (payload: string ) => {
-    const categories = await categoryRepo.findBy({ name: payload})
+    const categories: CategorySchema | null = await categoryRepo.findOne({ where: {id: Number(payload)},
+        relations: { realEstate: true }
+    })
 
+    if(!categories) throw new AppError("Category not found", 404)
+    
     return categorySchema.parse(categories) 
 }
 

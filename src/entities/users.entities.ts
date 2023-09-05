@@ -28,7 +28,7 @@ export class User {
   @DeleteDateColumn({ type: "date" })
   deletedAt: string | null;
   
-  @OneToMany(() => Schedule, (s) => s.userId)
+  @OneToMany(() => Schedule, (s) => s.user)
   schedules: Schedule[]
 
   @BeforeInsert()

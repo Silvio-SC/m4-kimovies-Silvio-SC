@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./users.entities";
 import { RealEstate } from "./realEstates.entities";
 
@@ -10,13 +10,14 @@ export class Schedule {
     @CreateDateColumn({ type: "date" })
     date: string;
 
-    @Column({ type: "date" })
+    @Column({ type: "time" })
     hour: string;
   
-    @ManyToOne(() => RealEstate)
-    realEstateId: number
+    @ManyToOne(() => RealEstate, (re) => re.schedules)
+    @JoinColumn()
+    realEstate: RealEstate
 
     @ManyToOne(() => User, (u) => u.schedules)
-    userId: number
-    
+    @JoinColumn()
+    user: User
 }

@@ -8,7 +8,7 @@ import { userReturnArrSchema, userReturnSchema, userUpadeteSchema } from "../sch
 const create = async (payload: UserCreate) => {
     const find: User | null = await userRepo.findOneBy({email: payload.email})
 
-    if(find) throw new AppError("Email already exists.", 401)
+    if(find) throw new AppError("Email already exists", 409)
 
     const user: User = userRepo.create(payload)  
     await userRepo.save(user)

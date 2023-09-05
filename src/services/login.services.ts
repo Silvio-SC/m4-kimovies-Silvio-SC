@@ -8,11 +8,11 @@ import { sign } from "jsonwebtoken";
 const login = async ({ email, password }: Login): Promise<Token> => {
   const foundUser: User | null = await userRepo.findOneBy({ email });
   
-  if (!foundUser) throw new AppError("Invalid Email or Password", 401);
+  if (!foundUser) throw new AppError("Invalid credentials", 401);
 
   const samePass: boolean = await compare(password, foundUser.password);
 
-  if (!samePass) throw new AppError("Invalid Email or Password", 401);
+  if (!samePass) throw new AppError("Invalid credentials", 401);
 
   const token: string = sign(
     { admin: foundUser.admin },

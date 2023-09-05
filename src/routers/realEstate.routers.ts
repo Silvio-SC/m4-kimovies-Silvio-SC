@@ -1,10 +1,12 @@
 import { Router } from "express";
 import middlewares from "../middlewares";
+import { realEstateControllers } from "../controllers";
 
 export const realEstateRouter: Router = Router();
 
 realEstateRouter.post("", 
     middlewares.verifyToken, 
-    middlewares.verifyAdm 
+    middlewares.verifyAdm,
+    realEstateControllers.create
 ) // verificação de endereço
-realEstateRouter.get("", )
+realEstateRouter.get("", realEstateControllers.read)

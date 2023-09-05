@@ -1,13 +1,14 @@
 import { z } from "zod"
-import { realEstateSchema } from "./realEstate.schema"
+import { realEstateReturnSchema, realEstateSchema } from "./realEstate.schema"
 
 const categorySchema = z.object({
     id: z.number().positive(),
     name: z.string().max(45),
-    realEstates: realEstateSchema.array()
+    realEstate: realEstateReturnSchema.array()
 })
 
 const categoryCreateSchema = categorySchema.omit({ id: true , realEstates: true})
-const categoryReturnSchema = categorySchema.omit({ realEstates: true})
+const categoryReturnSchema = categorySchema.omit({ realEstate: true})
+const categoryReturnArrSchema = categoryReturnSchema.array()
 
-export { categorySchema, categoryCreateSchema, categoryReturnSchema }
+export { categorySchema, categoryCreateSchema, categoryReturnSchema, categoryReturnArrSchema }

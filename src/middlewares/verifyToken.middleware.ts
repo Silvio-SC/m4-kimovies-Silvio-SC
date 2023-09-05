@@ -8,8 +8,7 @@ export const verifyToken = (
     next: NextFunction
 ) => {
     const auth: string | undefined = req.headers.authorization;
-    
-    if(!auth) throw new AppError("Missing bearer token.", 401)
+    if(!auth) throw new AppError("Missing bearer token", 401)
 
     const [_bearer, token] = auth.split(" ")
     const decoded = verify(token, process.env.SECRET_KEY!)
